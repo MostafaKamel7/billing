@@ -1,8 +1,11 @@
 const express = require('express')
+const login = require('./startup/mongo.js')
+const bodyParser = require('body-parser')
 const app = express()
 const XLSX = require('xlsx')
 const puppeteer = require('puppeteer')
 const multer = require('multer')
+app.use(bodyParser.urlencoded({ extended: true }))
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/'),
   filename: (req, file, cb) => cb(null, file.originalname)
@@ -15,7 +18,7 @@ app.set('views', 'views')
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'ejs')
 
-app.get('/', async (req, res) => res.render('login'))
+app.get('/', async (req, res) => res.render('login', { unauthorized: false }))
 
 app.post('/upload', upload.single('avatar'), async (req, res) => {
   const workbook = XLSX.readFile(req.file.path)
@@ -24,8 +27,13 @@ app.post('/upload', upload.single('avatar'), async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
+  const credentials = await login()
   // TODO: login logic here
-  res.render('index', { isdisabled: true })
+  if (req.body.username === credentials.username && req.body.password === credentials.password) {
+    res.render('index', { isdisabled: true })
+  } else {
+    res.render('login', { isdisabled: true, unauthorized: true })
+  }
 })
 
 app.post('/Orange', async (req, res) => {
