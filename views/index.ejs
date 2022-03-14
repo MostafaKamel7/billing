@@ -53,15 +53,3 @@
       <button type="submit">Run the test!</button>
     <% } %>
   </form>
-    [showCustomRangeLabel]="locale.customRangeLabel"
-    [alwaysShowCalendars]="alwaysShowCalendars"
-    [showCancel]="showCancel"
-    [showClearButton]="showClearButton"
-    [isInvalidDate] = "isInvalidDate"
-    [opens]="'right'"
-    [ranges]="ranges"
-    [locale]="locale"
-    (datesUpdated)="rangeSelect($event)"
-  >
-  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-</label>
