@@ -1,4 +1,10 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<label class="datepicker__label">
+  <input
+    #datePicker
+    ngxDaterangepickerMd
+    type="text"
+    class="datepicker__input"
+    [(ngModel)]="selected"<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -53,3 +59,15 @@
       <button type="submit">Run the test!</button>
     <% } %>
   </form>
+    [showCustomRangeLabel]="locale.customRangeLabel"
+    [alwaysShowCalendars]="alwaysShowCalendars"
+    [showCancel]="showCancel"
+    [showClearButton]="showClearButton"
+    [isInvalidDate] = "isInvalidDate"
+    [opens]="'right'"
+    [ranges]="ranges"
+    [locale]="locale"
+    (datesUpdated)="rangeSelect($event)"
+  >
+  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+</label>
